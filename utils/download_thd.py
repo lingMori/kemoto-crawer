@@ -60,7 +60,7 @@ if __name__ == "__main__":
     download_args = [(post_url, image_urls, save_folder, request_delay) for post_url, image_urls in tqdm(extracted_hrefs.items(), desc="Preparing download")]
 
     # Download images with delay between requests and retries
-    with ThreadPoolExecutor(max_workers=3) as executor:
+    with ThreadPoolExecutor(max_workers=4) as executor:
         futures = [executor.submit(download_with_delay, args) for args in download_args]
         for future in tqdm(as_completed(futures), total=len(futures), desc="Downloading"):
             future.result()
